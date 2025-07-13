@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:hotstar_clone/models/movies.dart';
+import 'package:hotstar_clone/screens/details/movie_details_screen.dart';
+import 'package:hotstar_clone/widgets/container.dart';
 
 class ListSection extends StatelessWidget {
   final Future<List<Movie>> moviesfuture;
-  final String title;
+  final String? title;
   final double itemHeight;
   final double itemWidth;
-  final int itemCount;
+  final int? itemCount;
   final bool numbers;
   final Widget? languageTabs; // Optional LanguageTabs widget
 
   const ListSection({
-    Key? key,
+    super.key,
     required this.moviesfuture,
-    required this.title,
+    this.title,
     required this.itemHeight,
     required this.itemWidth,
-    required this.itemCount,
+    this.itemCount,
     this.numbers = false,
     this.languageTabs, // Accepts an optional LanguageTabs widget
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class ListSection extends StatelessWidget {
       future: moviesfuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: CustomCircularLoading());
         } else if (snapshot.hasError) {
           return Center(
             child: Text(
@@ -50,7 +52,7 @@ class ListSection extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  title,
+                  title ?? '',
                   style: const TextStyle(
                     color: Color.fromARGB(255, 206, 196, 196),
                     fontSize: 18,
@@ -67,43 +69,56 @@ class ListSection extends StatelessWidget {
                 height: itemHeight,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount:
-                      itemCount < movies.length ? itemCount : movies.length,
+                  itemCount: movies.length,
                   itemBuilder: (context, index) {
                     final movie = movies[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: Stack(
-                        children: [
-                          Container(
-                            width: itemWidth,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) => MovieDetailsPage(movie: movie),
                           ),
-                          if (numbers)
-                            Positioned(
-                              bottom: 0,
-                              left: 0,
-                              child: Text(
-                                '${index + 1}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 100,
-                                  fontWeight: FontWeight.bold,
-                                  shadows: [
-                                    Shadow(color: Colors.black, blurRadius: 5),
-                                  ],
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: itemWidth,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                                  ),
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
-                        ],
+                            if (numbers)
+                              Positioned(
+                                bottom: 0,
+                                left: 0,
+                                child: Text(
+                                  '${index + 1}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 100,
+                                    fontWeight: FontWeight.bold,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black,
+                                        blurRadius: 5,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
                       ),
                     );
                   },

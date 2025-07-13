@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:hotstar_clone/apisetting/api.dart';
-
 import 'package:hotstar_clone/widgets/colors.dart';
 import 'package:hotstar_clone/models/movies.dart';
-import 'package:hotstar_clone/searching/category.dart';
+import 'package:hotstar_clone/screens/searching/category.dart';
+import 'package:hotstar_clone/widgets/container.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -69,7 +69,7 @@ class _SearchState extends State<SearchScreen> {
 
       setState(() {
         _filteredMovies = filteredResults;
-        _isSearching = false; // Hide loading icon after search
+        _isSearching = false;
       });
     });
   }
@@ -162,7 +162,7 @@ class _SearchState extends State<SearchScreen> {
               future: _movies,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(child: CustomCircularLoading());
                 } else if (snapshot.hasError) {
                   return Center(
                     child: Text(

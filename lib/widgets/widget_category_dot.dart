@@ -24,3 +24,23 @@ Widget buildDot() {
     ),
   );
 }
+
+class WidgetCategoryDot extends StatelessWidget {
+  const WidgetCategoryDot({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        buildCategory('1Cr Views'),
+        buildDot(),
+        buildCategory('Fukra Insaan'),
+        buildDot(),
+        buildCategory('Hindi'),
+        buildDot(),
+        buildCategory('Game Show'),
+      ],
+    );
+  }
+}

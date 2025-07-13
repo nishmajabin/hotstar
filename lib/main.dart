@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotstar_clone/splash_screen.dart';
+import 'package:hotstar_clone/screens/splash/splash_screen.dart';
 
 main(){
   runApp(HotstarClone());
