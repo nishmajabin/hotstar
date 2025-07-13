@@ -4,7 +4,7 @@ import 'package:hotstar_clone/widgets/colors.dart';
 import 'package:hotstar_clone/screens/download/download_screen.dart';
 import 'package:hotstar_clone/screens/home/home_screen.dart';
 import 'package:hotstar_clone/screens/my_space/my_space_screen.dart';
-import 'package:hotstar_clone/screens/searching/search_screen.dart';
+import 'package:hotstar_clone/screens/search/search_screen.dart';
 import 'package:hotstar_clone/screens/sparks/sparks_screen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 

@@ -6,7 +6,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:hotstar_clone/apisetting/api.dart';
 import 'package:hotstar_clone/widgets/colors.dart';
 import 'package:hotstar_clone/models/movies.dart';
-import 'package:hotstar_clone/screens/searching/category.dart';
+import 'package:hotstar_clone/screens/search/category.dart';
 import 'package:hotstar_clone/widgets/container.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -29,9 +29,6 @@ class _SearchState extends State<SearchScreen> {
     super.initState();
     _movies = ApiCalling().getLatestMovies();
     _searchController.addListener(_onSearchChanged);
-    _focusNode.addListener(() {
-      setState(() {}); // rebuild to update UI on focus change
-    });
   }
 
   @override
