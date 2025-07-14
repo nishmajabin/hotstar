@@ -119,6 +119,7 @@ class _SparksScreenState extends State<SparksScreen> {
                     itemHeight: 250,
                     itemWidth: 200,
                     itemCount: 12,
+                    center: CustomCircularLoading(),
                   ),
                   const SizedBox(height: 20),
                   ListSection(

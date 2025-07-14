@@ -10,7 +10,8 @@ class ListSection extends StatelessWidget {
   final double itemWidth;
   final int? itemCount;
   final bool numbers;
-  final Widget? languageTabs; // Optional LanguageTabs widget
+  final Widget? languageTabs;
+  final Widget? center; // Optional LanguageTabs widget
 
   const ListSection({
     super.key,
@@ -20,7 +21,8 @@ class ListSection extends StatelessWidget {
     required this.itemWidth,
     this.itemCount,
     this.numbers = false,
-    this.languageTabs, // Accepts an optional LanguageTabs widget
+    this.languageTabs, 
+    this.center// Accepts an optional LanguageTabs widget
   });
 
   @override
@@ -29,7 +31,7 @@ class ListSection extends StatelessWidget {
       future: moviesfuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CustomCircularLoading());
+          return Center(child: center ?? Text(''),);
         } else if (snapshot.hasError) {
           return Center(
             child: Text(

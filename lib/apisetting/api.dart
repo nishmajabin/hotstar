@@ -4,10 +4,9 @@ import 'package:hotstar_clone/models/movies.dart';
 import 'package:http/http.dart' as http;
 
 const baseUrl = "https://api.themoviedb.org/3/";
-late String endPoint; 
+late String endPoint;
 
 class ApiCalling {
-
   // fetching trending movies:
   static const String _trendingUrl =
       '${baseUrl}trending/movie/day?api_key=${AppApi.apiKey}';
@@ -24,7 +23,7 @@ class ApiCalling {
         );
       }
     } catch (error) {
-       await Future.delayed(Duration(seconds: 2)); // Wait 2 seconds
+      await Future.delayed(Duration(seconds: 2)); // Wait 2 seconds
       return getTrendingMovies();
     }
   }
@@ -45,12 +44,12 @@ class ApiCalling {
         );
       }
     } catch (error) {
-       await Future.delayed(Duration(seconds: 2)); // Wait 2 seconds
-      return getTrendingMovies();
+      await Future.delayed(Duration(seconds: 2)); // Wait 2 seconds
+      return getLatestMovies();
     }
   }
 
- // Fetching Popular movies:
+  // Fetching Popular movies:
   static const String _popularUrl =
       '${baseUrl}movie/popular?api_key=${AppApi.apiKey}';
 
@@ -66,8 +65,8 @@ class ApiCalling {
         );
       }
     } catch (error) {
-       await Future.delayed(Duration(seconds: 2)); 
-      return getTrendingMovies();
+      await Future.delayed(Duration(seconds: 2));
+      return getPopularMovies();
     }
   }
 
@@ -88,12 +87,9 @@ class ApiCalling {
       }
     } catch (error) {
       await Future.delayed(Duration(seconds: 2)); // Wait 2 seconds
-      return getTrendingMovies();
-      
+      return getComingSoonMovies();
     }
   }
-
- 
 
   // Fetching Top Rated Movies:
   static const String _topRatedUrl =
@@ -103,8 +99,7 @@ class ApiCalling {
     try {
       final response = await http.get(Uri.parse(_topRatedUrl));
       if (response.statusCode == 200) {
-        final List<dynamic> decodeData =
-            jsonDecode(response.body)['results'] as List;
+        final List<dynamic> decodeData = jsonDecode(response.body)['results'];
         return decodeData.map((movie) => Movie.fromJson(movie)).toList();
       } else {
         throw Exception(
@@ -112,10 +107,8 @@ class ApiCalling {
         );
       }
     } catch (error) {
-       await Future.delayed(Duration(seconds: 2)); // Wait 2 seconds
-      return getTrendingMovies();
-      
-      // throw Exception('Error fetching Movies: $error');
+      await Future.delayed(Duration(seconds: 2)); // Wait 2 seconds
+      return getTopRatedMovies();
     }
   }
 }

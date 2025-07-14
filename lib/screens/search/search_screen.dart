@@ -159,7 +159,7 @@ class _SearchState extends State<SearchScreen> {
               future: _movies,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CustomCircularLoading());
+                  return const Center(child: Text(''));
                 } else if (snapshot.hasError) {
                   return Center(
                     child: Text(

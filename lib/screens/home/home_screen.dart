@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hotstar_clone/apisetting/api.dart';
 import 'package:hotstar_clone/apisetting/constant.dart';
@@ -118,10 +117,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(height: 20),
                   ListSection(
-                    moviesfuture: popularMovies,
+                    moviesfuture: trendingMovies,
                     title: 'Popular Shows',
                     itemHeight: 155,
                     itemWidth: 130,
+                    center: CustomCircularLoading(),
                   ),
                   const SizedBox(height: 20),
                   ListSection(
